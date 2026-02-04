@@ -24,6 +24,8 @@ out/
 .settings
 .springBeans
 .sts4-cache
+.idea
+.run
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
@@ -34,6 +36,7 @@ bin/
 /dist/
 /nbdist/
 /.nb-gradle/
+Gradle
 
 ### VS Code ###
 .vscode/
