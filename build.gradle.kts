@@ -19,7 +19,7 @@ dependencies {
 
 }
 intellij {
-    version.set("2024.1.4")
+    version.set("2023.2.5")
     type.set("IU")
 
     plugins.set(listOf("com.intellij.java"))
