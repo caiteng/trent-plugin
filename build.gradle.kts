@@ -1,7 +1,7 @@
 plugins {
     id("java")
 //    id("org.jetbrains.kotlin.jvm") version "1.9.24"
-    id("org.jetbrains.intellij") version "1.5.2"
+    id("org.jetbrains.intellij") version "1.17.3"
 }
 
 group = "org.trent"
@@ -19,23 +19,16 @@ dependencies {
 
 }
 intellij {
-    version.set("2022.3.3")
+    version.set("2024.1.4")
     type.set("IU")
 
     plugins.set(listOf("com.intellij.java"))
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
 }
 
 tasks {
     withType<JavaCompile> {
         sourceCompatibility = "11"
         targetCompatibility = "11"
-        options.encoding = "UTF-8"
     }
 //    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 //        kotlinOptions.jvmTarget = "11"
