@@ -1,0 +1,60 @@
+<idea-plugin>
+    <id>org.trent.trent-helper</id>
+
+    <name>Trent-Helper</name>
+
+    <vendor email="panda_old@qq.com" url="https://www.trent.com">Trent</vendor>
+
+    <description><![CDATA[
+           旨在帮助开发者，提高开发效率。</br>
+           1. 读取tip文件，实现阅读提示功能</br>
+           2. 显示文件点击轨迹，便于开发时来回切换文件修改代码</br>
+           3. ***************
+  ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- init mybatis-->
+<!--        <postStartupActivity implementation="org.trent.helper.mybatis.InitMybatisActivity"/>-->
+        <!-- init click light-->
+        <postStartupActivity implementation="org.trent.helper.clicklight.ActiveTabHighlighterStartupActivity"/>
+        <editorTabColorProvider implementation="org.trent.helper.clicklight.CustomEditorTabColorProvider"/>
+        <!-- config page-->
+        <applicationService serviceImplementation="org.trent.helper.settings.AppSettingsState"/>
+        <applicationService serviceImplementation="org.trent.helper.readtip.ReadTipState"/>
+        <applicationConfigurable instance="org.trent.helper.settings.TrentSettings" displayName="Trent Settings"/>
+    </extensions>
+    <actions>
+
+<!--        <action id="checkSetting" class="org.trent.helper.AppSettings" text="Trent设置校验" description="Trent设置校验">-->
+<!--            &lt;!&ndash;            <add-to-group group-id="ToolsMenu" anchor="first"/>&ndash;&gt;-->
+<!--            <add-to-group group-id="NavBarToolBar" anchor="last"/>-->
+<!--        </action>-->
+
+<!--        <action id="MyBatisJumpAction" class="org.trent.helper.actions.MyBatisJumpAction"-->
+<!--                text="MyBatis Jump" description="Jump between MyBatis XML and Java files">-->
+<!--            <add-to-group group-id="GenerateGroup" anchor="last"/>-->
+<!--        </action>-->
+
+<!--        <action id="goToMapper" class="org.trent.helper.mybatis.ToMapperAction" text="goToMapper"-->
+<!--                description="goToMapper">-->
+<!--            <add-to-group group-id="GenerateGroup" anchor="last"/>-->
+<!--            <keyboard-shortcut keymap="$default" first-keystroke="shift ctrl X"/>-->
+<!--        </action>-->
+        <action id="org.trent.helper.readtip.TipActionPlus" class="org.trent.helper.readtip.TipActionPlus" text="TipActionPlus">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt Q"/>
+        </action>
+        <action id="org.trent.helper.readtip.TipActionSub" class="org.trent.helper.readtip.TipActionSub" text="TipActionSub">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl alt W"/>
+        </action>
+    </actions>
+
+<!--    <application-components>-->
+<!--        <component>-->
+<!--            <implementation-class>org.trent.helper.component.TrentPluginComponent</implementation-class>-->
+<!--        </component>-->
+<!--    </application-components>-->
+</idea-plugin>
