@@ -1,7 +1,7 @@
 plugins {
     id("java")
 //    id("org.jetbrains.kotlin.jvm") version "1.9.24"
-    id("org.jetbrains.intellij") version "1.17.3"
+    id("org.jetbrains.intellij") version "1.5.2"
 }
 
 group = "org.trent"
@@ -19,7 +19,7 @@ dependencies {
 
 }
 intellij {
-    version.set("2023.1.5")
+    version.set("2022.3.3")
     type.set("IU")
 
     plugins.set(listOf("com.intellij.java"))
