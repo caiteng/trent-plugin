@@ -25,10 +25,17 @@ intellij {
     plugins.set(listOf("com.intellij.java"))
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
 tasks {
     withType<JavaCompile> {
         sourceCompatibility = "11"
         targetCompatibility = "11"
+        options.encoding = "UTF-8"
     }
 //    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 //        kotlinOptions.jvmTarget = "11"
