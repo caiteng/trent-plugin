@@ -1,3 +1,7 @@
+import java.io.File
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("java")
 //    id("org.jetbrains.kotlin.jvm") version "1.9.24"
@@ -18,24 +22,55 @@ dependencies {
     implementation("org.jsoup:jsoup:1.16.2")
 
 }
-intellij {
-    version.set("2024.1.4")
-    type.set("IU")
 
-    plugins.set(listOf("com.intellij.java"))
+// 获取本地配置
+val localProperties = Properties().apply {
+    val localPropsFile = File(project.rootDir, "local.properties")
+    if (localPropsFile.exists()) {
+        load(FileInputStream(localPropsFile))
+    }
+}
+
+
+intellij {
+    type.set("IC")
+
+    // 优先使用项目内置的IDE
+    val projectIdeaDir = File(project.rootDir, "idea-runtime")
+    if (projectIdeaDir.exists() && projectIdeaDir.isDirectory && File(projectIdeaDir, "bin").exists()) {
+        localPath.set(projectIdeaDir.absolutePath)
+        println("Using project bundled IntelliJ IDEA: ${projectIdeaDir.absolutePath}")
+    } else {
+        // 回退到版本指定（会自动下载）
+        version.set("2024.2.4")
+        println("Will download IntelliJ IDEA Community Edition 2024.2.4")
+    }
+    
+    // 配置JBR路径（如果项目中有）
+    val projectJbrDir = File(project.rootDir, "jbr-runtime")
+    if (projectJbrDir.exists()) {
+        println("Found project JBR directory: ${projectJbrDir.absolutePath}")
+        // 注意：具体配置方式取决于插件版本
+    }
+    
+    // 社区版默认包含Java支持，无需额外插件
+    plugins.set(emptyList())
 }
 
 tasks {
     withType<JavaCompile> {
-        sourceCompatibility = "11"
-        targetCompatibility = "11"
+        // 使用Java 21进行编译
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
+        options.release.set(21)
+        options.encoding = "UTF-8"
     }
 //    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-//        kotlinOptions.jvmTarget = "11"
+//        kotlinOptions.jvmTarget = "17"
 //    }
 
     patchPluginXml {
-        sinceBuild.set("211")
+        sinceBuild.set("242")
         untilBuild.set("9999.*")
     }
     signPlugin {
@@ -45,5 +80,13 @@ tasks {
     }
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
+    }
+
+    // 自定义任务：使用当前IDEA运行
+    register("runInCurrentIDEA") {
+        dependsOn("runIde")
+        doFirst {
+            println("Running plugin in your current activated IDEA...")
+        }
     }
 }

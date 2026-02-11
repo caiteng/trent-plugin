@@ -19,12 +19,23 @@ public class HandleUtils {
         if (readTipState.textList.isEmpty()) {
             loadThisList(readTipState);
         }
-        if (readTipState.textList.size() == readTipState.index) {
-            loadNextList(readTipState);
-            return readTipState.textList.get(0);
+        
+        // 检查是否需要加载下一页
+        if (readTipState.index >= readTipState.textList.size() - 1) {
+            try {
+                loadNextList(readTipState);
+                return readTipState.textList.get(0);
+            } catch (Exception e) {
+                return "已到达最后一页";
+            }
         } else {
             readTipState.index = readTipState.index + 1;
-            return readTipState.textList.get(readTipState.index);
+            // 双重检查边界
+            if (readTipState.index < readTipState.textList.size()) {
+                return readTipState.textList.get(readTipState.index);
+            } else {
+                return "已到达最后一页";
+            }
         }
     }
 
@@ -45,7 +56,12 @@ public class HandleUtils {
         if (readTipState.textList.isEmpty()) {
             loadThisList(readTipState);
         }
-        return readTipState.textList.get(readTipState.index);
+        // 边界检查
+        if (readTipState.index >= 0 && readTipState.index < readTipState.textList.size()) {
+            return readTipState.textList.get(readTipState.index);
+        } else {
+            return "无可用内容";
+        }
     }
 
 

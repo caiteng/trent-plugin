@@ -15,35 +15,36 @@ public class TrentSettings implements Configurable {
     private JBTabbedPane tabHost;
     private JBScrollPane scroll1;
     private JBScrollPane scroll2;
-    private JBScrollPane scroll3;
-    private JBScrollPane scroll4;
     private final AppSettingsState settings;
     private final ReadTipState readTipSetting;
 
-    private final ReadTipPanel readTipPanel;
-    private final MybatisPanel mybatisPanel;
-    private final ClickLightPanel clickLightPanel;
-    private final MybatisPanel aaa2;
+    private ReadTipPanel readTipPanel;
+    private ClickLightPanel clickLightPanel;
 
     public TrentSettings() {
         settings = AppSettingsState.getInstance();
         readTipSetting = ReadTipState.getInstance();
 
+        initializeComponents();
+    }
+
+    private void initializeComponents() {
+        // 首先清空所有现有的标签页
+        tabHost.removeAll();
+        
+        // 标签高亮设置
         clickLightPanel = new ClickLightPanel(settings);
-        scroll1.setBorder(null);
+        scroll1.setBorder(BorderFactory.createTitledBorder("标签页高亮设置"));
         scroll1.setViewportView(clickLightPanel.createComponent());
 
+        // 阅读提示设置
         readTipPanel = new ReadTipPanel(settings, readTipSetting);
-        scroll2.setBorder(null);
+        scroll2.setBorder(BorderFactory.createTitledBorder("阅读提示设置"));
         scroll2.setViewportView(readTipPanel.createComponent());
 
-        mybatisPanel = new MybatisPanel(settings, readTipSetting);
-        scroll3.setBorder(null);
-        scroll3.setViewportView(mybatisPanel.createComponent());
-
-        aaa2 = new MybatisPanel(settings, readTipSetting);
-        scroll4.setBorder(null);
-        scroll4.setViewportView(aaa2.createComponent());
+        // 重新添加我们需要的标签页
+        tabHost.addTab("Click Light", scroll1);
+        tabHost.addTab("Read Tip", scroll2);
     }
 
     @Nls(capitalization = Nls.Capitalization.Title)
@@ -66,13 +67,12 @@ public class TrentSettings implements Configurable {
 
     @Override
     public boolean isModified() {
-        return clickLightPanel.isModified() || mybatisPanel.isModified() || readTipPanel.isModified();
+        return clickLightPanel.isModified() || readTipPanel.isModified();
     }
 
     @Override
     public void apply() {
         clickLightPanel.apply();
-        mybatisPanel.apply();
         readTipPanel.apply();
         settings.loadState(settings.getState());
         readTipSetting.loadState(readTipSetting.getState());
@@ -81,7 +81,6 @@ public class TrentSettings implements Configurable {
     @Override
     public void reset() {
         clickLightPanel.reset();
-        mybatisPanel.reset();
         readTipPanel.reset();
     }
 

@@ -41,30 +41,7 @@
             <border type="none"/>
             <children/>
           </scrollpane>
-          <scrollpane id="74195" class="com.intellij.ui.components.JBScrollPane" binding="scroll3">
-            <constraints>
-              <tabbedpane title="mybatis工具"/>
-            </constraints>
-            <properties>
-              <enabled value="true"/>
-              <maximumSize width="600" height="32767"/>
-            </properties>
-            <border type="none"/>
-            <children/>
-          </scrollpane>
-          <scrollpane id="36f2c" class="com.intellij.ui.components.JBScrollPane" binding="scroll4">
-            <constraints>
-              <tabbedpane title="test"/>
-            </constraints>
-            <properties>
-              <enabled value="true"/>
-              <maximumSize width="600" height="32767"/>
-              <toolTipText value=""/>
-              <visible value="true"/>
-            </properties>
-            <border type="none"/>
-            <children/>
-          </scrollpane>
+
         </children>
       </tabbedpane>
     </children>

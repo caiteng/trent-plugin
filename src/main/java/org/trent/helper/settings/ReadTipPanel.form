@@ -28,10 +28,10 @@
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="title"/>
+          <text value="标题"/>
         </properties>
       </component>
-      <component id="de825" class="javax.swing.JTextField" binding="title">
+      <component id="de825" class="javax.swing.JTextField" binding="textTitle">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -44,10 +44,10 @@
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="API Key"/>
+          <text value="基础URL"/>
         </properties>
       </component>
-      <component id="4f0fd" class="javax.swing.JTextField" binding="textApiKey">
+      <component id="4f0fd" class="javax.swing.JTextField" binding="textBaseURL">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -60,78 +60,71 @@
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="群成员欢迎词"/>
+          <text value="当前页面URL"/>
         </properties>
       </component>
-      <component id="efde4" class="javax.swing.JTextField" binding="textWelcome">
+      <component id="efde4" class="javax.swing.JTextField" binding="textThisURL">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties>
-          <text value="欢迎{user} {memo}"/>
-          <toolTipText value="{user}和{memo}会被具体的成员名称和群公告替换"/>
-        </properties>
+        <properties/>
       </component>
-      <component id="2ee9d" class="javax.swing.JCheckBox" binding="chkGroupAny">
+      <component id="2ee9d" class="javax.swing.JLabel">
         <constraints>
-          <grid row="5" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="回复群成员的任意消息（当聊天窗口打开时有效）"/>
+          <text value="下一页URL"/>
         </properties>
       </component>
-      <component id="f182" class="javax.swing.JCheckBox" binding="chkFriendAny">
+      <component id="f182" class="javax.swing.JTextField" binding="textNextURL">
         <constraints>
-          <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties>
-          <text value="回复好友消息"/>
-        </properties>
+        <properties/>
       </component>
       <component id="bf231" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="上一页URL"/>
+        </properties>
+      </component>
+      <component id="b49b3" class="javax.swing.JTextField" binding="textPreviousURL">
+        <constraints>
+          <grid row="6" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="e0fd8" class="javax.swing.JLabel">
         <constraints>
           <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="内容为空自动回复"/>
-        </properties>
-      </component>
-      <component id="b49b3" class="javax.swing.JTextField" binding="textReplyEmpty">
-        <constraints>
-          <grid row="7" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <toolTipText value="未设置不回复"/>
-        </properties>
-      </component>
-      <component id="e0fd8" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="newUrl"/>
+          <text value="新URL"/>
         </properties>
       </component>
       <component id="27e4f" class="javax.swing.JTextField" binding="newUrl">
         <constraints>
-          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
         <properties>
-          <toolTipText value="newUrl"/>
+          <toolTipText value="输入新的数据源URL"/>
         </properties>
       </component>
-      <component id="39198" class="javax.swing.JButton" binding="load">
+      <component id="39198" class="javax.swing.JButton" binding="btnLoadDataSource">
         <constraints>
-          <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="load"/>
+          <text value="加载"/>
         </properties>
       </component>
       <component id="22e59" class="javax.swing.JComboBox" binding="comboDataSource">
@@ -152,27 +145,27 @@
           <text value="切换数据源"/>
         </properties>
       </component>
-      <component id="956cf" class="javax.swing.JButton" binding="button1" default-binding="true">
+      <component id="956cf" class="javax.swing.JButton" binding="btnDeleteDataSource" default-binding="true">
         <constraints>
-          <grid row="8" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Button"/>
+          <text value="删除"/>
         </properties>
       </component>
       <component id="83913" class="javax.swing.JTextField" binding="newTitle">
         <constraints>
-          <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
         <properties>
-          <toolTipText value="title"/>
+          <toolTipText value="输入新数据源标题"/>
         </properties>
       </component>
-      <component id="c9cb9" class="javax.swing.JLabel" binding="message">
+      <component id="c9cb9" class="javax.swing.JLabel" binding="lblMessage">
         <constraints>
-          <grid row="9" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="8" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value=""/>
