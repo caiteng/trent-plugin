@@ -59,10 +59,10 @@ intellij {
 
 tasks {
     withType<JavaCompile> {
-        // 使用Java 21进行编译
-        sourceCompatibility = "21"
-        targetCompatibility = "21"
-        options.release.set(21)
+        // 使用Java 17进行编译以兼容IntelliJ Platform
+        sourceCompatibility = "17"
+        targetCompatibility = "17"
+        options.release.set(17)
         options.encoding = "UTF-8"
     }
 //    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {

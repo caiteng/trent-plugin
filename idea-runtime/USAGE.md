@@ -108,7 +108,14 @@ git commit -m "Update IntelliJ IDEA runtime to 新版本"
 # 克隆项目后执行
 git clone <repository-url>
 cd trent-plugin
+
+# 下载IDE运行时ZIP文件到idea-runtime目录
+# 下载地址: https://d2cico3c979uwg.cloudfront.net/com/jetbrains/intellij/idea/ideaIC/2024.2.4/ideaIC-2024.2.4.zip
+
+# 解压IDE运行时
 Expand-Archive -Path "idea-runtime\ideaIC-2024.2.4.zip" -DestinationPath "idea-runtime" -Force
+
+# 构建项目
 ./gradlew build
 ```
 

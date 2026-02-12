@@ -21,7 +21,7 @@
         <children>
           <scrollpane id="92798" class="com.intellij.ui.components.JBScrollPane" binding="scroll1">
             <constraints>
-              <tabbedpane title="轨迹跟踪"/>
+              <tabbedpane title="Read Tip"/>
             </constraints>
             <properties>
               <enabled value="true"/>
@@ -30,18 +30,6 @@
             <border type="none"/>
             <children/>
           </scrollpane>
-          <scrollpane id="c12a4" class="com.intellij.ui.components.JBScrollPane" binding="scroll2">
-            <constraints>
-              <tabbedpane title="读取tip"/>
-            </constraints>
-            <properties>
-              <enabled value="true"/>
-              <maximumSize width="600" height="32767"/>
-            </properties>
-            <border type="none"/>
-            <children/>
-          </scrollpane>
-
         </children>
       </tabbedpane>
     </children>

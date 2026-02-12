@@ -6,18 +6,16 @@
     <vendor email="panda_old@qq.com" url="https://www.trent.com">Trent</vendor>
 
     <description><![CDATA[
-           旨在帮助开发者，提高开发效率。</br>
-           1. 读取tip文件，实现阅读提示功能</br>
-           2. 显示文件点击轨迹，便于开发时来回切换文件修改代码</br>
-           3. ***************
+           简洁实用的IntelliJ IDEA阅读辅助插件</br>
+           • 支持多数据源管理，可配置多个网站</br>
+           • 智能内容抓取和分段显示</br>
+           • 快捷键操作：Ctrl+Alt+Q/W 切换内容</br>
+           • 上下页导航测试功能
   ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <!-- init click light-->
-        <postStartupActivity implementation="org.trent.helper.clicklight.ActiveTabHighlighterStartupActivity"/>
-        <editorTabColorProvider implementation="org.trent.helper.clicklight.CustomEditorTabColorProvider"/>
         <!-- config page-->
         <applicationService serviceImplementation="org.trent.helper.settings.AppSettingsState"/>
         <applicationService serviceImplementation="org.trent.helper.readtip.ReadTipState"/>

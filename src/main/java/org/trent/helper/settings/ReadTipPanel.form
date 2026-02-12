@@ -18,6 +18,24 @@
           <text value="启用功能"/>
         </properties>
       </component>
+      <component id="prevBtn" class="javax.swing.JButton" binding="btnPrevTest">
+        <constraints>
+          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="上一页测试"/>
+          <toolTipText value="测试上一页导航功能"/>
+        </properties>
+      </component>
+      <component id="nextBtn" class="javax.swing.JButton" binding="btnNextTest">
+        <constraints>
+          <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="下一页测试"/>
+          <toolTipText value="测试下一页导航功能"/>
+        </properties>
+      </component>
       <vspacer id="27656">
         <constraints>
           <grid row="10" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>

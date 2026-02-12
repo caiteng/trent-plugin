@@ -98,6 +98,8 @@ public class HandleUtils {
             readTipState.chapterTitle = document.select("h1").get(0).text();
             readTipState.textList = textList;
             readTipState.nextURL = getNext(document);
+            // 同时获取上一页链接（如果需要的话）
+            readTipState.previousURL = getPrevious(document);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -147,12 +149,55 @@ public class HandleUtils {
         throw new RuntimeException("url不可用");
     }
 
-    private static String getNext(Document document) {
-        Elements contentElements = document.select("a.button");
-        if (contentElements.isEmpty()) {
-            throw new RuntimeException("END.");
+    private static String getPrevious(Document document) {
+        // 尝试多种选择器来找到上一页链接
+        Elements prevElements = document.select("a:contains(上一页)");
+        if (prevElements.isEmpty()) {
+            prevElements = document.select("a:contains(上一章)");
         }
-        return contentElements.last().attr("href");
+        if (prevElements.isEmpty()) {
+            prevElements = document.select("a[href~=.*(prev|上一页|上一章).*]");
+        }
+        
+        if (prevElements.isEmpty()) {
+            // 如果还是找不到，尝试找相对链接
+            Elements allLinks = document.select("a[href]");
+            for (Element link : allLinks) {
+                String href = link.attr("href");
+                if (href.contains("prev") || href.contains("上一页") || href.contains("上一章")) {
+                    return href;
+                }
+            }
+            return ""; // 上一页可能不存在
+        }
+        return prevElements.first().attr("href");
+    }
+    
+    private static String getNext(Document document) {
+        // 尝试多种选择器来找到下一页链接
+        Elements nextElements = document.select("a.button");
+        if (nextElements.isEmpty()) {
+            nextElements = document.select("a:contains(下一页)");
+        }
+        if (nextElements.isEmpty()) {
+            nextElements = document.select("a:contains(下一章)");
+        }
+        if (nextElements.isEmpty()) {
+            nextElements = document.select("a[href~=.*(next|下一页|下一章).*]");
+        }
+        
+        if (nextElements.isEmpty()) {
+            // 如果还是找不到，尝试找相对链接
+            Elements allLinks = document.select("a[href]");
+            for (Element link : allLinks) {
+                String href = link.attr("href");
+                if (href.contains("next") || href.contains("下一页") || href.contains("下一章")) {
+                    return href;
+                }
+            }
+            throw new RuntimeException("无法找到下一页链接");
+        }
+        return nextElements.last().attr("href");
     }
 
 

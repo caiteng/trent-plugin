@@ -12,8 +12,6 @@ import static com.intellij.json.editor.smartEnter.JsonSmartEnterProcessor.LOG;
 @State(name = "AppSettingsState", storages = @Storage("AppSettingsPlugin.xml"))
 public class AppSettingsState implements PersistentStateComponent<AppSettingsState> {
 
-    public boolean enableXmlInterfaceJump = false;
-    public boolean clickLightEnabled = false;
     public boolean readTipEnabled = false;
 
     public static AppSettingsState getInstance() {
@@ -30,8 +28,6 @@ public class AppSettingsState implements PersistentStateComponent<AppSettingsSta
 
     @Override
     public void loadState(@NotNull AppSettingsState state) {
-        enableXmlInterfaceJump = state.enableXmlInterfaceJump;
-        clickLightEnabled = state.clickLightEnabled;
         readTipEnabled = state.readTipEnabled;
     }
 }

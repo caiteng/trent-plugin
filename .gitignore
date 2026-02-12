@@ -45,7 +45,5 @@ bin/
 /gradle
 
 ### IntelliJ IDEA Runtime ###
-# 忽略解压后的IDE运行时目录，但保留zip文件
+# 忽略整个idea-runtime目录（包括zip文件和解压后的文件）
 idea-runtime/
-!idea-runtime/*.zip
-!idea-runtime/README.md
