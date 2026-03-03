@@ -1,194 +1,261 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.trent.helper.settings.ReadTipPanel">
-  <grid id="27dc6" binding="panel" layout-manager="GridLayoutManager" row-count="11" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-    <margin top="0" left="0" bottom="0" right="0"/>
+  <grid id="mainPanel" binding="panel" layout-manager="GridLayoutManager" row-count="15" column-count="6" same-size-horizontally="false" same-size-vertically="false" hgap="5" vgap="5">
+    <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="20" y="20" width="596" height="400"/>
+      <xy x="20" y="20" width="800" height="600"/>
     </constraints>
     <properties/>
-    <border type="none"/>
+    <border type="empty"/>
     <children>
-      <component id="a9c1c" class="javax.swing.JCheckBox" binding="chkEnabled">
+      <!-- 第 0 行：功能启用开关 -->
+      <component id="chkEnabledId" class="javax.swing.JCheckBox" binding="chkEnabled">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <enabled value="true"/>
+          <text value="启用阅读提示功能"/>
           <selected value="false"/>
-          <text value="启用功能"/>
         </properties>
       </component>
-      <component id="prevBtn" class="javax.swing.JButton" binding="btnPrevTest">
+
+      <!-- 第 1-2 行：数据源管理区域标题 -->
+      <component id="dataSourceLabel" class="javax.swing.JLabel">
         <constraints>
-          <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="上一页测试"/>
-          <toolTipText value="测试上一页导航功能"/>
+          <text value="数据源管理"/>
+          <font style="1" size="12"/>
         </properties>
       </component>
-      <component id="nextBtn" class="javax.swing.JButton" binding="btnNextTest">
-        <constraints>
-          <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="下一页测试"/>
-          <toolTipText value="测试下一页导航功能"/>
-        </properties>
-      </component>
-      <vspacer id="27656">
-        <constraints>
-          <grid row="10" column="0" row-span="1" col-span="3" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </vspacer>
-      <component id="e7a54" class="javax.swing.JLabel">
+
+      <!-- 第 2 行：数据源选择 -->
+      <component id="dataSourceListLabel" class="javax.swing.JLabel">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="标题"/>
+          <text value="数据源列表:"/>
         </properties>
       </component>
-      <component id="de825" class="javax.swing.JTextField" binding="textTitle">
+      
+      <component id="comboDataSourceId" class="javax.swing.JComboBox" binding="comboDataSource">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="4c000" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="1" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="基础URL"/>
+          <toolTipText value="选择一个数据源进行编辑"/>
         </properties>
       </component>
-      <component id="4f0fd" class="javax.swing.JTextField" binding="textBaseURL">
+      
+      <component id="btnNewDataSourceId" class="javax.swing.JButton" binding="btnNewDataSource">
         <constraints>
-          <grid row="3" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
-        <properties/>
+        <properties>
+          <text value="新建"/>
+          <toolTipText value="创建新的数据源"/>
+        </properties>
       </component>
-      <component id="8d1f3" class="javax.swing.JLabel">
+      
+      <component id="btnDeleteDataSourceId" class="javax.swing.JButton" binding="btnDeleteDataSource">
+        <constraints>
+          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="删除"/>
+          <toolTipText value="删除选中的数据源"/>
+        </properties>
+      </component>
+      
+      <!-- 应用数据源按钮 -->
+      <component id="btnApplyDataSourceId" class="javax.swing.JButton" binding="btnApplyDataSource">
+        <constraints>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="应用此数据源"/>
+          <toolTipText value="立即切换到选中的数据源"/>
+        </properties>
+      </component>
+
+      <!-- 第 3 行：分隔线 -->
+      <component id="separator" class="javax.swing.JSeparator">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </component>
+
+      <!-- 第 4 行：数据源标题 -->
+      <component id="titleLabel" class="javax.swing.JLabel">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="当前页面URL"/>
+          <text value="数据源标题:"/>
         </properties>
       </component>
-      <component id="efde4" class="javax.swing.JTextField" binding="textThisURL">
+      
+      <component id="textTitleId" class="javax.swing.JTextField" binding="textTitle">
         <constraints>
-          <grid row="4" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="4" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="数据源的名称，用于在列表中识别"/>
+        </properties>
       </component>
-      <component id="2ee9d" class="javax.swing.JLabel">
+
+      <!-- 第 5 行：基础 URL -->
+      <component id="baseURLLabel" class="javax.swing.JLabel">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="下一页URL"/>
+          <text value="基础 URL:"/>
         </properties>
       </component>
-      <component id="f182" class="javax.swing.JTextField" binding="textNextURL">
+      
+      <component id="textBaseURLId" class="javax.swing.JTextField" binding="textBaseURL">
         <constraints>
-          <grid row="5" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="网站的基础地址，例如：https://www.84kanshu.com"/>
+        </properties>
       </component>
-      <component id="bf231" class="javax.swing.JLabel">
+
+      <!-- 第 6 行：当前页面 URL -->
+      <component id="thisURLLabel" class="javax.swing.JLabel">
         <constraints>
           <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="上一页URL"/>
+          <text value="当前页面 URL:"/>
         </properties>
       </component>
-      <component id="b49b3" class="javax.swing.JTextField" binding="textPreviousURL">
+      
+      <component id="textThisURLId" class="javax.swing.JTextField" binding="textThisURL">
         <constraints>
-          <grid row="6" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="6" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="当前正在阅读的章节页面路径"/>
+        </properties>
       </component>
-      <component id="e0fd8" class="javax.swing.JLabel">
+
+      <!-- 第 7 行：下一页 URL -->
+      <component id="nextURLLabel" class="javax.swing.JLabel">
         <constraints>
           <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="新URL"/>
+          <text value="下一页 URL:"/>
         </properties>
       </component>
-      <component id="27e4f" class="javax.swing.JTextField" binding="newUrl">
+      
+      <component id="textNextURLId" class="javax.swing.JTextField" binding="textNextURL">
         <constraints>
-          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="7" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <toolTipText value="下一章节的页面路径"/>
+        </properties>
+      </component>
+
+      <!-- 第 8 行：上一页 URL -->
+      <component id="previousURLLabel" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="上一页 URL:"/>
+        </properties>
+      </component>
+      
+      <component id="textPreviousURLId" class="javax.swing.JTextField" binding="textPreviousURL">
+        <constraints>
+          <grid row="8" column="1" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
         <properties>
-          <toolTipText value="输入新的数据源URL"/>
+          <toolTipText value="上一章节的页面路径"/>
         </properties>
       </component>
-      <component id="39198" class="javax.swing.JButton" binding="btnLoadDataSource">
+
+      <!-- 第 9 行：消息提示和当前使用的数据源 -->
+      <component id="lblMessageId" class="javax.swing.JLabel" binding="lblMessage">
         <constraints>
-          <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="加载"/>
-        </properties>
-      </component>
-      <component id="22e59" class="javax.swing.JComboBox" binding="comboDataSource">
-        <constraints>
-          <grid row="1" column="1" row-span="1" col-span="4" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <model>
-            <item value="DEMO"/>
-          </model>
-        </properties>
-      </component>
-      <component id="73270" class="javax.swing.JLabel">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="切换数据源"/>
-        </properties>
-      </component>
-      <component id="956cf" class="javax.swing.JButton" binding="btnDeleteDataSource" default-binding="true">
-        <constraints>
-          <grid row="7" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="删除"/>
-        </properties>
-      </component>
-      <component id="83913" class="javax.swing.JTextField" binding="newTitle">
-        <constraints>
-          <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <toolTipText value="输入新数据源标题"/>
-        </properties>
-      </component>
-      <component id="c9cb9" class="javax.swing.JLabel" binding="lblMessage">
-        <constraints>
-          <grid row="8" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="9" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value=""/>
         </properties>
       </component>
+      
+      <!-- 当前使用的数据源标签 -->
+      <component id="lblCurrentDataSourceId" class="javax.swing.JLabel" binding="lblCurrentDataSource">
+        <constraints>
+          <grid row="9" column="3" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="当前使用的数据源：未设置"/>
+          <foreground color="green"/>
+        </properties>
+      </component>
+
+      <!-- 第 10 行：分隔线 -->
+      <component id="separator2" class="javax.swing.JSeparator">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </component>
+
+      <!-- 第 11 行：测试区域标题 -->
+      <component id="testLabel" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="11" column="0" row-span="1" col-span="6" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="功能测试"/>
+          <font style="1" size="12"/>
+        </properties>
+      </component>
+
+      <!-- 第 12 行：测试按钮 -->
+      <component id="prevBtnId" class="javax.swing.JButton" binding="btnPrevTest">
+        <constraints>
+          <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="测试上一页"/>
+          <toolTipText value="测试上一章导航功能"/>
+        </properties>
+      </component>
+      
+      <component id="nextBtnId" class="javax.swing.JButton" binding="btnNextTest">
+        <constraints>
+          <grid row="12" column="2" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="测试下一页"/>
+          <toolTipText value="测试下一章导航功能"/>
+        </properties>
+      </component>
+
+      <!-- 第 13-14 行：弹性空间 -->
+      <vspacer id="vSpacer">
+        <constraints>
+          <grid row="14" column="0" row-span="1" col-span="6" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
     </children>
   </grid>
 </form>

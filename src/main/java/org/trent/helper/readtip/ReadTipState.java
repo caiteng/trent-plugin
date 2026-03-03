@@ -40,13 +40,20 @@ public class ReadTipState implements PersistentStateComponent<ReadTipState> {
     @Nullable
     @Override
     public ReadTipState getState() {
-        deserializeDataSource(this.dataSourceList);
+        // 确保序列化数据是最新的
+        if (!dataSource.isEmpty()) {
+            dataSourceList = serializeDataSource(dataSource);
+        }
         return this;
     }
 
     @Override
     public void loadState(@NotNull ReadTipState state) {
-        dataSourceList = serializeDataSource(state.dataSource);
+        // 先从序列化数据中恢复数据源
+        dataSourceList = state.dataSourceList;
+        deserializeDataSource(state.dataSourceList);
+        
+        // 再加载其他配置
         baseURL = state.baseURL;
         thisURL = state.thisURL;
         previousURL = state.previousURL;

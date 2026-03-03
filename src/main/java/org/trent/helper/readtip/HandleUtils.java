@@ -13,8 +13,19 @@ import java.util.regex.Pattern;
 
 
 public class HandleUtils {
+    
+    // 翻页速度控制
+    private static final int MAX_PAGE_TURNS = 8; // 3 秒内最多翻 8 页
+    private static final int TIME_WINDOW_MS = 3000; // 时间窗口 3 秒
+    private static long[] pageTurnTimestamps = new long[MAX_PAGE_TURNS];
+    private static int pageIndex = 0;
 
     public static String getTipContentPlus() {
+        // 检查翻页速度限制
+        if (!checkPageTurnSpeed()) {
+            return "翻页太快了，请慢一点...";
+        }
+        
         ReadTipState readTipState = ReadTipState.getInstance();
         if (readTipState.textList.isEmpty()) {
             loadThisList(readTipState);
@@ -40,6 +51,11 @@ public class HandleUtils {
     }
 
     public static String getTipContentSub() {
+        // 检查翻页速度限制
+        if (!checkPageTurnSpeed()) {
+            return "翻页太快了，请慢一点...";
+        }
+        
         ReadTipState readTipState = ReadTipState.getInstance();
         if (readTipState.textList.isEmpty()) {
             loadThisList(readTipState);
@@ -52,6 +68,11 @@ public class HandleUtils {
     }
 
     public static String getTipContent() {
+        // 检查翻页速度限制
+        if (!checkPageTurnSpeed()) {
+            return "翻页太快了，请慢一点...";
+        }
+        
         ReadTipState readTipState = ReadTipState.getInstance();
         if (readTipState.textList.isEmpty()) {
             loadThisList(readTipState);
@@ -199,6 +220,31 @@ public class HandleUtils {
         }
         return nextElements.last().attr("href");
     }
-
-
+    
+    // 检查翻页速度是否在限制范围内
+    private static synchronized boolean checkPageTurnSpeed() {
+        long currentTime = System.currentTimeMillis();
+        
+        // 清理超出时间窗口的记录
+        int validCount = 0;
+        for (int i = 0; i < pageIndex; i++) {
+            if ((currentTime - pageTurnTimestamps[i]) <= TIME_WINDOW_MS) {
+                // 保留有效的记录
+                pageTurnTimestamps[validCount] = pageTurnTimestamps[i];
+                validCount++;
+            }
+        }
+        pageIndex = validCount;
+        
+        // 检查是否超过限制
+        if (pageIndex >= MAX_PAGE_TURNS) {
+            return false;
+        }
+        
+        // 添加新的翻页记录
+        pageTurnTimestamps[pageIndex] = currentTime;
+        pageIndex++;
+        
+        return true;
+    }
 }
