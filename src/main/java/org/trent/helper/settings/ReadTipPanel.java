@@ -292,24 +292,32 @@ public class ReadTipPanel implements Setting {
 
     @Override
     public void apply() {
-        // 应用基础设置
-        appSettings.readTipEnabled = chkEnabled.isSelected();
-        
-        // 应用ReadTipState配置
-        readTipSetting.baseURL = textBaseURL.getText();
-        readTipSetting.thisURL = textThisURL.getText();
-        readTipSetting.nextURL = textNextURL.getText();
-        readTipSetting.previousURL = textPreviousURL.getText();
-        readTipSetting.title = textTitle.getText();
-        
-        // 应用数据源更改
-        readTipSetting.dataSource.clear();
-        readTipSetting.dataSource.addAll(dataSourceMap.values());
-        
-        // 保存状态
-        appSettings.loadState(appSettings.getState());
-        readTipSetting.loadState(readTipSetting.getState());
-        
-        showMessage("配置已保存", Color.GREEN);
+        try {
+            // 应用基础设置
+            appSettings.readTipEnabled = chkEnabled.isSelected();
+            
+            // 应用ReadTipState配置
+            readTipSetting.baseURL = textBaseURL.getText();
+            readTipSetting.thisURL = textThisURL.getText();
+            readTipSetting.nextURL = textNextURL.getText();
+            readTipSetting.previousURL = textPreviousURL.getText();
+            readTipSetting.title = textTitle.getText();
+            
+            // 应用数据源更改
+            readTipSetting.dataSource.clear();
+            readTipSetting.dataSource.addAll(dataSourceMap.values());
+            
+            // 确保序列化数据同步
+            readTipSetting.dataSourceList = readTipSetting.serializeDataSource(readTipSetting.dataSource);
+            
+            // 保存状态
+            appSettings.loadState(appSettings.getState());
+            readTipSetting.loadState(readTipSetting.getState());
+            
+            showMessage("配置已保存", Color.GREEN);
+        } catch (Exception e) {
+            showMessage("保存配置失败: " + e.getMessage(), Color.RED);
+            e.printStackTrace();
+        }
     }
 }

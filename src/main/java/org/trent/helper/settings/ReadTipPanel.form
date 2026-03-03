@@ -151,7 +151,7 @@
         </constraints>
         <properties>
           <model>
-            <item value="图灵机器人"/>
+            <item value="DEMO"/>
           </model>
         </properties>
       </component>
