@@ -1,5 +1,6 @@
 import java.io.File
 import java.io.FileInputStream
+import java.nio.charset.StandardCharsets
 import java.util.Properties
 
 plugins {
@@ -9,7 +10,7 @@ plugins {
 }
 
 group = "org.trent"
-version = "1.0-SNAPSHOT"
+version = project.findProperty("pluginVersion") as String? ?: "2.0.1"
 
 repositories {
     maven {
@@ -17,10 +18,10 @@ repositories {
     }
 }
 dependencies {
-    implementation("org.projectlombok:lombok:1.18.32")
-    annotationProcessor("org.projectlombok:lombok:1.18.32")
     implementation("org.jsoup:jsoup:1.16.2")
-
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.xerial:sqlite-jdbc:3.45.1.0")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
 }
 
 // 获取本地配置
@@ -65,6 +66,9 @@ tasks {
         options.release.set(17)
         options.encoding = "UTF-8"
     }
+    withType<Test> {
+        useJUnitPlatform()
+    }
 //    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 //        kotlinOptions.jvmTarget = "17"
 //    }
@@ -80,6 +84,25 @@ tasks {
     }
     publishPlugin {
         token.set(System.getenv("PUBLISH_TOKEN"))
+    }
+
+    named<org.jetbrains.intellij.tasks.RunIdeTask>("runIde") {
+        doFirst {
+            val disabledPluginsFile = layout.buildDirectory.file("idea-sandbox/config/disabled_plugins.txt").get().asFile
+            disabledPluginsFile.parentFile.mkdirs()
+            disabledPluginsFile.writeText(
+                listOf(
+                    "com.intellij.gradle",
+                    "org.jetbrains.idea.gradle.dsl",
+                    "org.jetbrains.plugins.gradle",
+                    "org.jetbrains.plugins.gradle.analysis",
+                    "org.jetbrains.plugins.gradle.dependency.updater",
+                    "org.jetbrains.plugins.gradle.maven"
+                ).joinToString(System.lineSeparator(), postfix = System.lineSeparator()),
+                StandardCharsets.UTF_8
+            )
+            println("Disabled bundled Gradle plugins for sandbox run: ${disabledPluginsFile.absolutePath}")
+        }
     }
 
     // 自定义任务：使用当前IDEA运行

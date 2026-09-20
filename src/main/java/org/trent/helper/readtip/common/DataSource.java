@@ -1,4 +1,4 @@
-package org.trent.helper.readtip;
+package org.trent.helper.readtip.common;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
@@ -20,14 +20,26 @@ public class DataSource {
     @SerializedName("title")
     private String title;
     
-    @SerializedName("chapterTitle")
-    private String chapterTitle;
-    
     @SerializedName("textList")
     private List<String> textList = new ArrayList<>();
     
     @SerializedName("index")
     private int index = 0;
+    
+    @SerializedName("type")
+    private String type = "remote";
+    
+    @SerializedName("localPath")
+    private String localPath;
+    
+    @SerializedName("localChapterIndex")
+    private int localChapterIndex = 0;
+    
+    @SerializedName("localChunkIndex")
+    private int localChunkIndex = 0;
+    
+    @SerializedName("localCurrentLineNumber")
+    private int localCurrentLineNumber = 0;
     
     // 手动实现getter/setter方法
     public String getBaseURL() { return baseURL; }
@@ -45,14 +57,28 @@ public class DataSource {
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
     
-    public String getChapterTitle() { return chapterTitle; }
-    public void setChapterTitle(String chapterTitle) { this.chapterTitle = chapterTitle; }
-    
     public List<String> getTextList() { return textList; }
-    public void setTextList(List<String> textList) { this.textList = textList; }
+    public void setTextList(List<String> textList) {
+        this.textList = textList == null ? new ArrayList<>() : new ArrayList<>(textList);
+    }
     
     public int getIndex() { return index; }
     public void setIndex(int index) { this.index = index; }
+    
+    public String getType() { return type == null ? "remote" : type; }
+    public void setType(String type) { this.type = type; }
+    
+    public String getLocalPath() { return localPath; }
+    public void setLocalPath(String localPath) { this.localPath = localPath; }
+    
+    public int getLocalChapterIndex() { return localChapterIndex; }
+    public void setLocalChapterIndex(int localChapterIndex) { this.localChapterIndex = localChapterIndex; }
+    
+    public int getLocalChunkIndex() { return localChunkIndex; }
+    public void setLocalChunkIndex(int localChunkIndex) { this.localChunkIndex = localChunkIndex; }
+    
+    public int getLocalCurrentLineNumber() { return localCurrentLineNumber; }
+    public void setLocalCurrentLineNumber(int localCurrentLineNumber) { this.localCurrentLineNumber = localCurrentLineNumber; }
     
     @Override
     public boolean equals(Object obj) {
@@ -60,17 +86,21 @@ public class DataSource {
         if (obj == null || getClass() != obj.getClass()) return false;
         DataSource that = (DataSource) obj;
         return index == that.index &&
+               localChapterIndex == that.localChapterIndex &&
+               localChunkIndex == that.localChunkIndex &&
+               localCurrentLineNumber == that.localCurrentLineNumber &&
                java.util.Objects.equals(baseURL, that.baseURL) &&
                java.util.Objects.equals(nextURL, that.nextURL) &&
                java.util.Objects.equals(thisURL, that.thisURL) &&
                java.util.Objects.equals(previousURL, that.previousURL) &&
                java.util.Objects.equals(title, that.title) &&
-               java.util.Objects.equals(chapterTitle, that.chapterTitle) &&
-               java.util.Objects.equals(textList, that.textList);
+               java.util.Objects.equals(textList, that.textList) &&
+               java.util.Objects.equals(type, that.type) &&
+               java.util.Objects.equals(localPath, that.localPath);
     }
     
     @Override
     public int hashCode() {
-        return java.util.Objects.hash(baseURL, nextURL, thisURL, previousURL, title, chapterTitle, textList, index);
+        return java.util.Objects.hash(baseURL, nextURL, thisURL, previousURL, title, textList, index, type, localPath, localChapterIndex, localChunkIndex, localCurrentLineNumber);
     }
 }

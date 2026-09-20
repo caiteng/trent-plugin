@@ -18,7 +18,7 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- config page-->
         <applicationService serviceImplementation="org.trent.helper.settings.AppSettingsState"/>
-        <applicationService serviceImplementation="org.trent.helper.readtip.ReadTipState"/>
+        <applicationService serviceImplementation="org.trent.helper.readtip.common.ReadTipState"/>
         <applicationConfigurable instance="org.trent.helper.settings.TrentSettings" displayName="Trent Settings"/>
     </extensions>
     <actions>

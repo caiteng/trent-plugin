@@ -5,10 +5,12 @@ import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.JBTabbedPane;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
-import org.trent.helper.readtip.ReadTipState;
+import org.trent.helper.readtip.common.ReadTipState;
 
-import javax.swing.*;
-
+import javax.swing.BorderFactory;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
 
 public class TrentSettings implements Configurable {
     private JPanel panel;
@@ -27,15 +29,22 @@ public class TrentSettings implements Configurable {
     }
 
     private void initializeComponents() {
-        // 首先清空所有现有的标签页
+        if (panel == null) {
+            panel = new JPanel(new BorderLayout());
+        }
+        if (tabHost == null) {
+            tabHost = new JBTabbedPane();
+            panel.add(tabHost, BorderLayout.CENTER);
+        }
+        if (scroll1 == null) {
+            scroll1 = new JBScrollPane();
+        }
+
         tabHost.removeAll();
-        
-        // 阅读提示设置
+
         readTipPanel = new ReadTipPanel(settings, readTipSetting);
         scroll1.setBorder(BorderFactory.createTitledBorder("阅读提示设置"));
         scroll1.setViewportView(readTipPanel.createComponent());
-
-        // 重新添加我们需要的标签页
         tabHost.addTab("Read Tip", scroll1);
     }
 
@@ -65,13 +74,10 @@ public class TrentSettings implements Configurable {
     @Override
     public void apply() {
         readTipPanel.apply();
-        settings.loadState(settings.getState());
-        readTipSetting.loadState(readTipSetting.getState());
     }
 
     @Override
     public void reset() {
         readTipPanel.reset();
     }
-
 }
