@@ -1,5 +1,7 @@
 package org.trent.helper.readtip.common;
 
+import org.trent.helper.db.SettingsDao;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,10 @@ public class SharedUtils {
         pageTurnTimestamps[pageIndex] = currentTime;
         pageIndex++;
         return true;
+    }
+
+    public static int getCharsPerPage() {
+        return SettingsDao.getConfigInt("chars_per_page", DEFAULT_CHUNK_SIZE);
     }
 
     public static List<String> splitText(String text, int chunkSize) {

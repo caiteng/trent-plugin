@@ -103,7 +103,7 @@ public class LocalSourceHandler {
         if (content != null && !content.isEmpty()) {
             // 将多行合并为连续文本（与远程源行为一致），再由 splitText 按固定长度切分
             String continuous = content.replace("\n", " ");
-            state.textList = SharedUtils.splitText(continuous, SharedUtils.DEFAULT_CHUNK_SIZE);
+            state.textList = SharedUtils.splitText(continuous, SharedUtils.getCharsPerPage());
         } else {
             state.textList = new ArrayList<>();
             state.textList.add(SharedUtils.FALLBACK_EMPTY_CONTENT);

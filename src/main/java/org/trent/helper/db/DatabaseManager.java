@@ -130,6 +130,16 @@ public class DatabaseManager {
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """);
+            stmt.executeUpdate("""
+                CREATE TABLE IF NOT EXISTS plugin_config (
+                    key TEXT PRIMARY KEY,
+                    value TEXT
+                )
+            """);
+            // 写入默认配置（已存在则跳过）
+            stmt.executeUpdate("INSERT OR IGNORE INTO plugin_config (key, value) VALUES ('chars_per_page', '35')");
+            stmt.executeUpdate("INSERT OR IGNORE INTO plugin_config (key, value) VALUES ('bubble_width', '0')");
+            stmt.executeUpdate("INSERT OR IGNORE INTO plugin_config (key, value) VALUES ('fadeout_seconds', '5')");
         }
     }
 
@@ -141,10 +151,10 @@ public class DatabaseManager {
         try (Statement stmt = connection.createStatement()) {
             Set<String> tables = new HashSet<>();
             try (ResultSet rs = stmt.executeQuery(
-                    "SELECT name FROM sqlite_master WHERE type='table' AND name IN ('data_source','remote_source','local_source','text_chunk','reading_progress','active_source')")) {
+                    "SELECT name FROM sqlite_master WHERE type='table' AND name IN ('data_source','remote_source','local_source','text_chunk','reading_progress','active_source','plugin_config')")) {
                 while (rs.next()) tables.add(rs.getString("name"));
             }
-            if (tables.size() != 6) return false;
+            if (tables.size() != 7) return false;
             Set<String> rpColumns = new HashSet<>();
             try (ResultSet rs = stmt.executeQuery("PRAGMA table_info(reading_progress)")) {
                 while (rs.next()) rpColumns.add(rs.getString("name"));
@@ -163,6 +173,7 @@ public class DatabaseManager {
         if (connection == null) return;
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate("PRAGMA foreign_keys = OFF");
+            stmt.executeUpdate("DROP TABLE IF EXISTS plugin_config");
             stmt.executeUpdate("DROP TABLE IF EXISTS active_source");
             stmt.executeUpdate("DROP TABLE IF EXISTS reading_progress");
             stmt.executeUpdate("DROP TABLE IF EXISTS text_chunk");

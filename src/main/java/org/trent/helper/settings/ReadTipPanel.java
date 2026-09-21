@@ -9,6 +9,7 @@ import com.intellij.openapi.util.text.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.trent.helper.db.DatabaseManager;
 import org.trent.helper.db.DataSourceDao;
+import org.trent.helper.db.SettingsDao;
 import org.trent.helper.readtip.common.DataSource;
 import org.trent.helper.readtip.common.ReadTipState;
 import org.trent.helper.readtip.local.LocalSourceHandler;
@@ -23,7 +24,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import java.awt.BorderLayout;
@@ -51,6 +54,9 @@ public class ReadTipPanel implements Setting {
     private JButton btnNewDataSource;
     private JButton btnEditDataSource;
     private JButton btnDeleteDataSource;
+    private JSpinner spinCharsPerPage;
+    private JSpinner spinBubbleWidth;
+    private JSpinner spinFadeoutSeconds;
 
     private final AppSettingsState appSettings;
     private final ReadTipState readTipSetting;
@@ -130,6 +136,36 @@ public class ReadTipPanel implements Setting {
 
         panel.add(new javax.swing.JSeparator());
 
+        // ── 显示设置 ──
+        panel.add(sectionLabel("显示设置"));
+        JPanel displayPanel = new JPanel(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints dgbc = new java.awt.GridBagConstraints();
+        dgbc.insets = new Insets(2, 2, 2, 2);
+        dgbc.anchor = java.awt.GridBagConstraints.WEST;
+
+        dgbc.gridx = 0; dgbc.weightx = 0;
+        displayPanel.add(new JLabel("每页字数:"), dgbc);
+        dgbc.gridx = 1; dgbc.weightx = 0;
+        spinCharsPerPage = new JSpinner(new SpinnerNumberModel(35, 10, 200, 5));
+        displayPanel.add(spinCharsPerPage, dgbc);
+
+        dgbc.gridx = 2; dgbc.weightx = 0;
+        displayPanel.add(new JLabel("  气泡宽度(px):"), dgbc);
+        dgbc.gridx = 3; dgbc.weightx = 0;
+        spinBubbleWidth = new JSpinner(new SpinnerNumberModel(0, 0, 2000, 50));
+        displayPanel.add(spinBubbleWidth, dgbc);
+
+        dgbc.gridx = 4; dgbc.weightx = 0;
+        displayPanel.add(new JLabel("  自动消失(秒):"), dgbc);
+        dgbc.gridx = 5; dgbc.weightx = 1.0;
+        spinFadeoutSeconds = new JSpinner(new SpinnerNumberModel(5, 1, 30, 1));
+        displayPanel.add(spinFadeoutSeconds, dgbc);
+
+        displayPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(displayPanel);
+
+        panel.add(new javax.swing.JSeparator());
+
         // ── 数据源管理 ──
         panel.add(sectionLabel("数据源管理"));
 
@@ -196,6 +232,10 @@ public class ReadTipPanel implements Setting {
         String dbPath = appSettings.databasePath;
         textDatabasePath.setText(defaultString(dbPath));
         chkEnabled.setSelected(appSettings.readTipEnabled);
+
+        spinCharsPerPage.setValue(SettingsDao.getConfigInt("chars_per_page", 35));
+        spinBubbleWidth.setValue(SettingsDao.getConfigInt("bubble_width", 0));
+        spinFadeoutSeconds.setValue(SettingsDao.getConfigInt("fadeout_seconds", 5));
 
         List<DataSource> dbSources = DataSourceDao.getAllDataSources();
         LOG.info("loadData: dbPath=" + dbPath + ", dbSources.size=" + dbSources.size()
@@ -669,5 +709,8 @@ public class ReadTipPanel implements Setting {
         if (!newPath.equals(oldPath) && !newPath.isEmpty()) {
             DatabaseManager.getInstance().reconnect(newPath);
         }
+        SettingsDao.setConfigInt("chars_per_page", (Integer) spinCharsPerPage.getValue());
+        SettingsDao.setConfigInt("bubble_width", (Integer) spinBubbleWidth.getValue());
+        SettingsDao.setConfigInt("fadeout_seconds", (Integer) spinFadeoutSeconds.getValue());
     }
 }

@@ -125,7 +125,7 @@ public class RemoteSourceHandler {
             Elements elements = document.select("p");
             updateCurrentLocation(state, document.location(), url);
             state.index = 0;
-            state.textList = SharedUtils.splitText(extractText(document, elements), SharedUtils.DEFAULT_CHUNK_SIZE);
+            state.textList = SharedUtils.splitText(extractText(document, elements), SharedUtils.getCharsPerPage());
             state.nextURL = getNext(document);
             state.previousURL = getPrevious(document);
         } catch (IOException e) {

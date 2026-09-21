@@ -1,10 +1,14 @@
 package org.trent.helper.readtip;
 
 import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.ui.popup.JBPopup;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.ui.awt.RelativePoint;
+import org.trent.helper.db.SettingsDao;
 import org.trent.helper.readtip.common.ReadTipState;
 
 import javax.swing.*;
@@ -60,26 +64,44 @@ public class Render {
                     .setBorderColor(new Color(0, 0, 0, 0))
                     .createPopup();
 
-            //遍历所有分页取最大宽度一次性设好popup尺寸避免翻页时resize引起重影
+            //设置popup尺寸：优先使用用户配置的固定宽度，否则遍历所有分页取最大宽度
             Dimension labelPref = contentLabel.getPreferredSize();
-            JLabel tempLabel = new JLabel();
-            tempLabel.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
-            int maxPrefWidth = labelPref.width;
-            ReadTipState state = ReadTipState.getInstance();
-            for (String page : state.textList) {
-                String esc = StringUtil.escapeXmlEntities(page).replace("\n", "<br/>");
-                tempLabel.setText("<html><body><span style='color: gray;'>" + esc + "</span></body></html>");
-                maxPrefWidth = Math.max(maxPrefWidth, tempLabel.getPreferredSize().width);
+            int configuredWidth = SettingsDao.getConfigInt("bubble_width", 0);
+            int popupWidth;
+            if (configuredWidth > 0) {
+                popupWidth = configuredWidth;
+            } else {
+                JLabel tempLabel = new JLabel();
+                tempLabel.setBorder(BorderFactory.createEmptyBorder(6, 10, 6, 10));
+                popupWidth = labelPref.width;
+                ReadTipState state = ReadTipState.getInstance();
+                for (String page : state.textList) {
+                    String esc = StringUtil.escapeXmlEntities(page).replace("\n", "<br/>");
+                    tempLabel.setText("<html><body><span style='color: gray;'>" + esc + "</span></body></html>");
+                    popupWidth = Math.max(popupWidth, tempLabel.getPreferredSize().width);
+                }
+                popupWidth += 20;
             }
-            currentPopup.setMinimumSize(new Dimension(maxPrefWidth + 20, labelPref.height + 10));
-            currentPopup.setSize(new Dimension(maxPrefWidth + 20, labelPref.height + 10));
+            currentPopup.setMinimumSize(new Dimension(popupWidth, labelPref.height + 10));
+            currentPopup.setSize(new Dimension(popupWidth, labelPref.height + 10));
 
             startFadeoutTimer();
 
             lastDataContext = e.getDataContext();
             lastEvent = e;
             installWheelListener();
-            currentPopup.showInBestPositionFor(lastDataContext);
+
+            // 定位popup：优先用编辑器位置，fallback到鼠标位置
+            Editor editor = e.getData(CommonDataKeys.EDITOR);
+            if (editor != null) {
+                currentPopup.showInBestPositionFor(e.getDataContext());
+            } else {
+                Point mousePos = MouseInfo.getPointerInfo().getLocation();
+                Window activeWindow = KeyboardFocusManager.getCurrentKeyboardFocusManager().getActiveWindow();
+                Component target = activeWindow != null ? activeWindow : contentLabel;
+                SwingUtilities.convertPointFromScreen(mousePos, target);
+                currentPopup.show(new RelativePoint(target, mousePos));
+            }
 
             // show之后Window已创建沿层级链处理
             Container parent = contentLabel.getParent();
@@ -145,7 +167,8 @@ public class Render {
 
     private void startFadeoutTimer() {
         if (fadeoutTimer != null) fadeoutTimer.stop();
-        fadeoutTimer = new Timer(5000, ev -> {
+        int fadeoutMs = SettingsDao.getConfigInt("fadeout_seconds", 5) * 1000;
+        fadeoutTimer = new Timer(fadeoutMs, ev -> {
             if (currentPopup != null && !currentPopup.isDisposed()) {
                 currentPopup.dispose();
             }

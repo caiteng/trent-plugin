@@ -47,7 +47,8 @@ class DatabaseAndPaginationTest {
         assertTrue(tables.contains("text_chunk"), "text_chunk 表应存在");
         assertTrue(tables.contains("reading_progress"), "reading_progress 表应存在");
         assertTrue(tables.contains("active_source"), "active_source 表应存在");
-        assertEquals(6, tables.size(), "应恰好有 6 张表");
+        assertTrue(tables.contains("plugin_config"), "plugin_config 表应存在");
+        assertEquals(7, tables.size(), "应恰好有 7 张表");
     }
 
     // ==================== 数据源 CRUD ====================
